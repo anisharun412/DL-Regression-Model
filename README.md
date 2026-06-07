@@ -40,9 +40,9 @@ Use the trained model to predict  for a new input value .
 
 ## PROGRAM
 
-### Name:
+### Name: Arunsamy D
 
-### Register Number:
+### Register Number: 212224240016
 
 ```python
 class Model(nn.Module):
@@ -50,22 +50,69 @@ class Model(nn.Module):
         super().__init__()
         #Include your code here
 
+        self.linear_layer = nn.Linear(in_features=in_features, out_features=out_features)
 
+    def forward(self, input_tensor):
+        #Include your code here
+        return self.linear_layer(input_tensor)
 
 # Initialize the Model, Loss Function, and Optimizer
 
+torch.manual_seed(59)  # Ensure same initial weights
+model = Model(1, 1)
+
+loss_function = nn.MSELoss()
+optimizer = torch.optim.SGD(
+    model.parameters(),
+    lr=0.001
+)
+
+# Train the Model
+epochs = 100
+losses = []
+
+for epoch in range(1, epochs + 1):  # Loop over epochs
+    #Include your code here
+
+    predicted_output = model(input_data)
+
+    loss = loss_function(predicted_output, target_data)
+
+    losses.append(loss.item())
+
+    optimizer.zero_grad()
+
+    loss.backward()
+
+    optimizer.step()
+
+    # Print loss, weight, and bias for EVERY epoch
+    print(f'epoch: {epoch:2}  loss: {loss.item():10.8f}  '
+          f'weight: {model.linear_layer.weight.item():10.8f}  '
+          f'bias: {model.linear_layer.bias.item():10.8f}')
 ```
 
 ### Dataset Information
-Include screenshot of the generated data
+
+<img width="523" height="1014" alt="image" src="https://github.com/user-attachments/assets/2e3cedd3-d41d-4a9d-9d75-80a7bb3ab830" />
+<img width="449" height="1006" alt="image" src="https://github.com/user-attachments/assets/2cdc7db2-fd6f-4d5d-9a3b-4ba057e75443" />
+
+
+<img width="571" height="455" alt="download" src="https://github.com/user-attachments/assets/695d3a22-fc56-4232-9b72-bdea40e3c2e9" />
+
 
 ### OUTPUT
 Training Loss Vs Iteration Plot
+
+<img width="580" height="455" alt="download" src="https://github.com/user-attachments/assets/e1e59076-855d-42ae-9b19-84a8f7ef765e" />
+
 Best Fit line plot
-Include your plot here
+
+<img width="571" height="455" alt="download" src="https://github.com/user-attachments/assets/48b43e4a-a59d-417c-be84-4c5f0f73b74f" />
 
 ### New Sample Data Prediction
-Include your sample input and output here
+<img width="940" height="296" alt="image" src="https://github.com/user-attachments/assets/7bc3a602-c3b4-4332-afe8-ded774102100" />
+
 
 ## RESULT
 Thus, a neural network regression model was successfully developed and trained using PyTorch.
